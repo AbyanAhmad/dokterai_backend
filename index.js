@@ -14,6 +14,7 @@ app.get("/", async (req, res) => {
 
 app.get("/:person", async (req, res) => {
     const query = "SELECT * FROM person WHERE name = ?";
+    console.log("")
     pool.query(query, [ req.params.person ], (error, result) => {
         if (!result[0]) {
             res.json({status:"Not Found!"});
@@ -27,8 +28,8 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    socketPath:'/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}',
-});
+    socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+}); 
 
 app.post("/", async (req, res) => {
     const data = {
