@@ -26,12 +26,6 @@ app.get("/:user", async (req, res) => {
     });
 });
 
-const pool = mysql.createPool({
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
-}); 
 
 app.post("/register", async (req, res) => {
     const password = req.body.password;
@@ -72,13 +66,19 @@ app.post("/history", async (req, res) => {
 });
 
 app.get("/history/:uid", async (req, res) => {
-    const query = "SELECT TOP(10) * FROM history WHERE id=?  ORDER BY reg_date DESC";
+    const query = "SELECT * FROM history WHERE id = ?";
     pool.query(query, [ req.params.uid ] , (error, result) => {
         if (!result[0]) {
             res.json({status:"Not Found!"});
         } else {
-            res.json(result[0]);
+            res.json(result);
         }
     });
 });
 
+const pool = mysql.createPool({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+}); 
