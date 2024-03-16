@@ -1,9 +1,10 @@
-GOOGLE_PROJECT_ID=dokterai-314115
-CLOUD_RUN_SERVICE=dokterai-service
-INSTANCE_CONNECTION_NAME=dokterai-314115:asia-southeast2:dokteraisql
+GOOGLE_PROJECT_ID=bangkit2024-416909
+CLOUD_RUN_SERVICE=my-bangkit-demo
+INSTANCE_CONNECTION_NAME=bangkit2024-416909:asia-southeast2:bangkit-demo
+
 DB_USER=root
-DB_PASS=mengapakaubegitu
-DB_NAME=dokterai_data
+DB_PASS=demo-test
+DB_NAME=users
 
 gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT_ID/$CLOUD_RUN_SERVICE \
     --project=$GOOGLE_PROJECT_ID
